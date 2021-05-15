@@ -17,7 +17,7 @@ def send_data():
    while True:
        if numSteps != previousNumSteps:
         json_data = json.dumps({'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 'value': numSteps})
-        yield f"data: {json_data}\n\n"
+        yield "data: {}\n\n".format(json_data)
         previousNumSteps = numSteps
 
 @app.route("/track-steps")
