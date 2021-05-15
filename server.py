@@ -4,14 +4,14 @@ import time
 from datetime import datetime
 
 app = Flask(__name__)
-numSteps = 0
-previousNumSteps = -1
+numSteps = None
+previousNumSteps = None
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-def send_data():
+def send_steps():
    global numSteps 
    global previousNumSteps
    while True:
@@ -21,15 +21,16 @@ def send_data():
         previousNumSteps = numSteps
 
 @app.route("/track-steps")
-def track():
+def track_steps():
    global numSteps 
    numSteps = request.args.get("steps")
-
-   if numSteps is None:
-       numSteps = 0 
    
-   return Response(send_data(), mimetype='text/event-stream')  
+   return Response(send_steps(), mimetype='text/event-stream')  
    #return "Temperature: " + str(request.args.get("temp")) + " Humidity: " + str(request.args.get("humidity"))
+
+@app.route("/track-idle")
+def track_idle():
+   pass
 
 if __name__ == "__main__":
     app.run()
