@@ -34,8 +34,8 @@ def home():
 def my_steps():
    stepsPerDay = {}
 
-   lastSeven = Steps.query.order_by(Steps.date).limit(7).all()
-   
+   lastSeven = Steps.query.order_by(Steps.date.desc()).limit(7).all()
+      
    for step in lastSeven:
       stepsPerDay[str(step.date)] = step.count
    
@@ -45,7 +45,7 @@ def my_steps():
 def my_idle():
    idlePerDay = {}
 
-   lastSeven = Idle.query.order_by(Idle.date).limit(7).all()
+   lastSeven = Idle.query.order_by(Idle.date.desc()).limit(7).all()
 
    for idle in lastSeven:
       idlePerDay[str(idle.date)] = idle.count
